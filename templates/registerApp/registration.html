@@ -1,0 +1,49 @@
+{% extends "registerApp/base.html" %}
+{% load static %}
+{% block body_block %}
+  <div class="container">
+    <div class="form-inline">
+      {% if registered %}
+        <h1>Thank you for registering!</h1>
+      {% else %}
+        <h2>Sig-Up Form</h2>
+        <h4>Please fill out the form below</h4>
+        <form  enctype="multipart/form-data" method="POST">
+          {% csrf_token %}
+          <table border=0  class="table table-condensed">
+          {% for field in user_form %}
+          <tr>
+            <td> {{ field.label_tag }}</td>
+             <td> {{ field }}<br>
+            {% if field.help_text %}
+              <small style="color: grey">{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+              <p style="color: red">{{ error }}</p>
+            {% endfor %}
+             </td>
+          </tr>
+          {% endfor %}
+
+          {% for field in profile_form %}
+          <tr>
+            <td> {{ field.label_tag }}</td>
+             <td> {{ field }}
+            {% if field.help_text %}
+              <small style="color: grey">{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+              <p style="color: red">{{ error }}</p>
+            {% endfor %}
+             </td>
+          </tr>
+          {% endfor %}
+          </table>
+          <input type="submit" name="" value="Register" class="btn btn-primary">
+        
+        </form>
+        
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

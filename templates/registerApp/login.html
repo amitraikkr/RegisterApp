@@ -1,0 +1,25 @@
+{% extends 'registerApp/base.html' %}
+{% block body_block %}
+  <div >
+    <div >
+
+    <h1>Welcome to the My-App !</h1>
+    {% if user.is_authenticated %}
+        <h2>Hello {{ user.username }}</h2>
+    {% else %}
+      <h2>Sign In</h2>
+		<form  method="post" action="{% url 'registerApp:user_login' %}">
+          {% csrf_token %}
+          <table border=0>
+          	<tr>
+          <td><label for="username">Username:</label></td>
+          <td><input type="text" name="username" placeholder="Username" class="form-control"></td></tr>
+		  <tr><td><label for="password">Password:</label></td>
+         <td><input type="password" name="password" placeholder="Password" class="form-control"></td></tr>
+         <tr><td></td><td><br><input type="submit" name="" value="Login" class="btn btn-primary"></td></tr></table>
+	</form>
+	 {% endif %}
+</div>
+  </div>
+{% endblock %}
+  
